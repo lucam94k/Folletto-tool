@@ -99,23 +99,24 @@
         <div class="ricevuta" id="ricevuta" style="display:none;"></div>
     </div>
     <script>
-        function checkModel() {
-            const serial = document.getElementById("serialInput").value.trim();
-            const nome = document.getElementById("nomeCliente").value.trim();
-            const prefix = serial.substring(0, 4);
-            let modello = "", anno = "", imgUrl = "";
-            switch (prefix) {
-                case "09":
-                    modello = "VK 140";
-                    anno = "2009";
-                    imgUrl = "IMG_3582.jpeg";
-                    break;
-                case "11":
-                    modello = "VK 150";
-                    anno = "2011";
-                    imgUrl = "IMG_3584.jpeg";
-                    break;
-                case "12":
+  function checkModel() {
+    const serial = document.getElementById("serialInput").value.trim();
+    const nome = document.getElementById("nomeCliente").value.trim();
+    const prefix = serial.substring(0, 2); // Prendi solo i primi 2 numeri!
+    let modello = "", annoProd = "", imgUrl = "";
+    switch (prefix) {
+        case "09":
+            modello = "VK140";
+            annoProd = "2009";
+            imgUrl = "IMG_3582.jpeg";
+            break;
+        case "11":
+            modello = "VK150";
+            annoProd = "2011";
+            imgUrl = "IMG_3584.jpeg";
+            break;
+
+        case "12":
                     modello = "VK 200";
                     anno = "2012";
                     imgUrl = "https://i.imgur.com/c1NUGQy.jpg";
