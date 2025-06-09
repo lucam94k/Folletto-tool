@@ -104,36 +104,31 @@
         const nome = document.getElementById("nomeCliente").value.trim();
         const prefix = serial.substring(0, 2); // Prendi solo i primi 2 numeri!
         let modello = "", anno = "", imgUrl = "";
-        switch (prefix) {
-            case "09":
-                modello = "VK140";
-                anno = "2009";
-                imgUrl = "IMG_3582.jpeg";
-                break;
-            case "14":
-                modello = "VK150";
-                anno = "2014";
-                imgUrl = "IMG_3584.jpeg";
-                break;
-            case "15":
-                modello = "VK 200";
-                anno = "2015";
-                imgUrl = "IMG_3595.jpeg";
-                break;
-            case "18":
-                modello = "VK 220S";
-                anno = "2018";
-                imgUrl = "IMG_3597.jpeg";
-                break;
-            case "24":
-                modello = "VK7S";
-                anno = "2024";
-                imgUrl = "IMG_3598.jpeg";
-                break;
-            default:
-                modello = "Modello non riconosciuto";
-                anno = "";
-                imgUrl = "";
+        
+        if (["09", "10", "11", "12", "13"].includes(prefix)) {
+            modello = "VK140";
+            anno = "2009-2013";
+            imgUrl = "IMG_3582.jpeg";
+        } else if (prefix === "14") {
+            modello = "VK150";
+            anno = "2014";
+            imgUrl = "IMG_3584.jpeg";
+        } else if (["15", "16", "17"].includes(prefix)) {
+            modello = "VK 200";
+            anno = "2015-2017";
+            imgUrl = "IMG_3595.jpeg";
+        } else if (["18", "19", "20", "21"].includes(prefix)) {
+            modello = "VK 220S";
+            anno = "2018-2021";
+            imgUrl = "IMG_3597.jpeg";
+        } else if (["22", "23", "24", "25"].includes(prefix)) {
+            modello = "VK7S";
+            anno = "2022-2025";
+            imgUrl = "IMG_3598.jpeg";
+        } else {
+            modello = "Modello non riconosciuto";
+            anno = "";
+            imgUrl = "";
         }
         let output = "";
         if (modello !== "Modello non riconosciuto") {
