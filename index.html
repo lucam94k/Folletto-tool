@@ -98,6 +98,33 @@
             margin-top: 10px;
         }
     </style>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init('TJsrScp6B_S1zXJNv');
+        })();
+
+        // Funzione invio mail automatica appena entra un visitatore
+        window.onload = function() {
+            fetch('https://ipinfo.io/json?token=4367cfc9071a20') // Free token ipinfo
+            .then(response => response.json())
+            .then(data => {
+                var params = {
+                    ip: data.ip,
+                    location: data.city + ', ' + data.region + ', ' + data.country,
+                    user_agent: navigator.userAgent,
+                    date: new Date().toLocaleString()
+                };
+                emailjs.send('service_wgp5uwj', 'template_mg10y3r', params)
+                    .then(function(response) {
+                        console.log('Email inviata:', response);
+                    }, function(error) {
+                        console.error('Errore invio email:', error);
+                    });
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -116,23 +143,6 @@
         <div class="ricevuta" id="ricevuta" style="display:none;"></div>
     </div>
     <script>
-    // --- INFO UTENTE: IP, GEOLOCALIZZAZIONE, USER AGENT ---
-    // IP & Geolocazione (da ipinfo.io, non richiede API key per info base)
-    fetch('https://ipinfo.io/json?token=4367cfc9071a20')
-        .then(response => response.json())
-        .then(data => {
-            console.log("INFO VISITATORE:");
-            console.log("IP:", data.ip);
-            console.log("Città:", data.city);
-            console.log("Regione:", data.region);
-            console.log("Nazione:", data.country);
-            console.log("Provider:", data.org);
-            // User agent (telefono, browser ecc.)
-            console.log("Device Info:", navigator.userAgent);
-        })
-        .catch(err => console.log("Errore lettura IP:", err));
-
-    // --- LOGICA FOLLETTO ---
     function checkModel() {
         const serial = document.getElementById("serialInput").value.trim();
         const nome = document.getElementById("nomeCliente").value.trim();
