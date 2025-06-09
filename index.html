@@ -99,42 +99,49 @@
         <div class="ricevuta" id="ricevuta" style="display:none;"></div>
     </div>
     <script>
-        function checkModel() {
-            const serial = document.getElementById("serialInput").value.trim();
-            const nome = document.getElementById("nomeCliente").value.trim();
-            const prefix = serial.substring(0, 4);
-            let modello = "", anno = "", imgUrl = "";
-            switch (prefix) {
-                case "09":
-                    modello = "VK 140";
-                    anno = "2009";
-                    imgUrl = "IMG_3582.jpeg";
-                    break;
-                case "2533":
-                    modello = "VK 150";
-                    anno = "2011";
-                    imgUrl = "IMG_3584.jpeg";
-                    break;
-                case "2631":
-                    modello = "VK 200";
-                    anno = "2012";
-                    imgUrl = "https://i.imgur.com/c1NUGQy.jpg";
-                    break;
-                case "2739":
-                    modello = "VK 220 S";
-                    anno = "2014";
-                    imgUrl = "https://i.imgur.com/VGSlh3N.jpg";
-                    break;
-                case "2832":
-                    modello = "VK 7";
-                    anno = "2023";
-                    imgUrl = "https://i.imgur.com/DSazixP.jpg";
-                    break;
-                default:
-                    modello = "Modello non riconosciuto";
-                    anno = "";
-                    imgUrl = "";
-            }
+function checkModel() {
+    const serial = document.getElementById("serialInput").value.trim();
+    const nome = document.getElementById("nomeCliente").value.trim();
+    const prefix = serial.substring(0, 2); // Prendi solo i primi 2 numeri!
+    let modello = "", annoProd = "", imgUrl = "";
+    switch (prefix) {
+        case "09":
+            modello = "VK140";
+            annoProd = "2009";
+            imgUrl = "IMG_3582.jpeg";
+            break;
+        case "11":
+            modello = "VK150";
+            annoProd = "2011";
+            imgUrl = "IMG_3584.jpeg";
+            break;
+        case "15":
+            modello = "VK200";
+            annoProd = "2015";
+            imgUrl = "IMG_VK200.jpeg";
+            break;
+        case "18":
+            modello = "VK220S";
+            annoProd = "2018";
+            imgUrl = "IMG_VK220S.jpeg";
+            break;
+        case "23":
+            modello = "VK7";
+            annoProd = "2023";
+            imgUrl = "IMG_VK7.jpeg";
+            break;
+        case "24":
+            modello = "VK7";
+            annoProd = "2024";
+            imgUrl = "IMG_VK7.jpeg";
+            break;
+        default:
+            modello = "Modello non riconosciuto";
+            annoProd = "";
+            imgUrl = "";
+    }
+    // ... resto invariato
+}
             let output = "";
             if (modello !== "Modello non riconosciuto") {
                 output = "<span class='ok-message'>Intervento di manutenzione gratuito disponibile al prodotto:<br>Check batterie e recupero potenza motore.</span><br>";
