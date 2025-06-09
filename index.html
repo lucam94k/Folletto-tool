@@ -28,9 +28,15 @@
         }
         h1 { 
             color: #25788f; 
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-size: 28px;
             letter-spacing: 1px;
+        }
+        .subtitle {
+            font-size: 20px; 
+            color: #25788f; 
+            margin-top: -10px; 
+            margin-bottom: 25px;
         }
         input, button { 
             padding: 12px; 
@@ -90,6 +96,7 @@
             <img src="IMG_3578.jpeg" alt="Vorwerk Logo" style="width:120px; margin-bottom:8px;">
         </div>
         <h1>Assistenza Cliente Folletto</h1>
+        <div class="subtitle">Check Serial Number</div>
         <input type="text" id="nomeCliente" placeholder="Nome Cliente (opzionale)"><br>
         <input type="text" id="serialInput" placeholder="Serial Number Folletto (es: 09xxxx...)">
         <br>
@@ -104,7 +111,6 @@
         const nome = document.getElementById("nomeCliente").value.trim();
         const prefix = serial.substring(0, 2); // Prendi solo i primi 2 numeri!
         let modello = "", anno = "", imgUrl = "";
-        
         if (["09", "10", "11", "12", "13"].includes(prefix)) {
             modello = "VK140";
             anno = "2009-2013";
