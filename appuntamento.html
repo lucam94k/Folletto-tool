@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Prenota Appuntamento - Folletto Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #e9f2f7;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 420px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 28px #bbc8cf;
+    }
+    h1 {
+      color: #25788f;
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+    input, button {
+      padding: 12px;
+      font-size: 17px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      width: 85%;
+    }
+    button {
+      background-color: #25788f;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #195a6a;
+    }
+    .success-message {
+      color: #0b942e;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Prenota il tuo Appuntamento</h1>
+    <form id="appointmentForm">
+      <input type="text" name="user_name" placeholder="Nome e Cognome" required><br>
+      <input type="tel" name="user_phone" placeholder="Numero di Telefono" required><br>
+      <input type="email" name="user_email" placeholder="Email" required><br>
+      <input type="date" name="appointment_date" required><br>
+      <input type="time" name="appointment_time" required><br>
+      <button type="submit">Conferma Appuntamento</button>
+    </form>
+    <div class="success-message" id="successMessage" style="display:none;">
+      ✅ Appuntamento registrato con successo!
+    </div>
+  </div>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    emailjs.init("TJsrScp6B_S1zXJNv"); // Tua public key
+
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      emailjs.sendForm('service_wgp5uwj', 'template_mg10y3r', this)
+        .then(function() {
+          document.getElementById('successMessage').style.display = 'block';
+          document.getElementById('appointmentForm').reset();
+        }, function(error) {
+          alert("Errore nell'invio, riprova.");
+          console.error(error);
+        });
+    });
+  </script>
+</body>
+</html>
