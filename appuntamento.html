@@ -97,6 +97,18 @@
         .error {
             color: #c91818;
         }
+        /* GDPR checkbox */
+        .gdpr-label {
+            display: block;
+            font-size: 15px;
+            color: #195a6a;
+            text-align: left;
+            margin: 18px 0 8px 32px;
+        }
+        .gdpr-label input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.25);
+        }
     </style>
 </head>
 <body>
@@ -122,6 +134,13 @@
             <label for="orario">Orario Appuntamento</label>
             <input type="time" id="orario" name="orario" required>
 
+            <!-- GDPR PRIVACY CONSENSO -->
+            <label class="gdpr-label">
+                <input type="checkbox" id="gdpr" required>
+                Acconsento al <a href="privacy.html" target="_blank">trattamento dei dati personali</a> secondo la normativa GDPR e dichiaro di aver letto l'informativa privacy.
+            </label>
+            <!-- /GDPR -->
+
             <button type="submit">Conferma Appuntamento</button>
         </form>
         <div id="resultMessage"></div>
@@ -131,11 +150,18 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
       (function(){
-        emailjs.init("TJsrScp6B_S1zXJNv"); // Il tuo public key
+        emailjs.init("TJsrScp6B_S1zXJNv");
       })();
       
       document.getElementById('appuntamentoForm').addEventListener('submit', function(event) {
         event.preventDefault();
+
+        // Blocca invio se la checkbox non è spuntata (anche se già "required", questo lo assicura)
+        if(!document.getElementById('gdpr').checked){
+            document.getElementById('resultMessage').innerHTML = "<div class='error'>Devi accettare il consenso privacy per proseguire.</div>";
+            return false;
+        }
+
         var nome = document.getElementById('nome').value;
         var telefono = document.getElementById('telefono').value;
         var email = document.getElementById('email').value;
