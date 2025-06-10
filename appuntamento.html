@@ -1,87 +1,161 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Prenota Appuntamento - Folletto Tool</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #e9f2f7;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 420px;
-      margin: 50px auto;
-      background-color: #fff;
-      padding: 30px 20px;
-      border-radius: 12px;
-      box-shadow: 0 6px 28px #bbc8cf;
-    }
-    h1 {
-      color: #25788f;
-      font-size: 26px;
-      margin-bottom: 18px;
-    }
-    input, button {
-      padding: 12px;
-      font-size: 17px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-bottom: 15px;
-      width: 85%;
-    }
-    button {
-      background-color: #25788f;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    button:hover {
-      background-color: #195a6a;
-    }
-    .success-message {
-      color: #0b942e;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Prenota Appuntamento - Folletto Tool Check</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #e9f2f7;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 40px auto;
+            background: #fff;
+            padding: 32px 24px 32px 24px;
+            max-width: 430px;
+            border-radius: 18px;
+            box-shadow: 0 6px 28px #bbc8cf;
+        }
+        .logo img {
+            width: 120px;
+            margin-bottom: 8px;
+        }
+        h1 {
+            color: #25788f;
+            margin-bottom: 12px;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+        h2 {
+            color: #444;
+            font-size: 18px;
+            margin-bottom: 24px;
+            margin-top: 2px;
+        }
+        form {
+            margin-top: 8px;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin: 14px 0 6px 32px;
+            font-size: 17px;
+            color: #195a6a;
+        }
+        input, button {
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 6px;
+            border: 1.5px solid #bcd;
+        }
+        input[type="text"], input[type="email"], input[type="tel"] {
+            width: 85%;
+            margin-bottom: 10px;
+        }
+        input[type="date"], input[type="time"] {
+            background: #fff !important;
+            color: #25788f;
+            border: 1.5px solid #25788f;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 18px;
+            width: 85%;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 6px #bbc8cf;
+            transition: border-color 0.2s;
+        }
+        input[type="date"]:focus, input[type="time"]:focus {
+            border-color: #0b942e;
+        }
+        button {
+            background: #25788f;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 87%;
+            font-size: 21px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #0b942e;
+        }
+        .success, .error {
+            margin: 24px 0 0 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .success {
+            color: #0b942e;
+        }
+        .error {
+            color: #c91818;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Prenota il tuo Appuntamento</h1>
-    <form id="appointmentForm">
-      <input type="text" name="user_name" placeholder="Nome e Cognome" required><br>
-      <input type="tel" name="user_phone" placeholder="Numero di Telefono" required><br>
-      <input type="email" name="user_email" placeholder="Email" required><br>
-      <input type="date" name="appointment_date" required><br>
-      <input type="time" name="appointment_time" required><br>
-      <button type="submit">Conferma Appuntamento</button>
-    </form>
-    <div class="success-message" id="successMessage" style="display:none;">
-      ✅ Appuntamento registrato con successo!
+    <div class="container">
+        <div class="logo">
+            <img src="IMG_3611.jpeg" alt="Vorwerk Logo">
+        </div>
+        <h1>Prenota il tuo Appuntamento</h1>
+        <h2>Compila i dati qui sotto per ricevere subito il tuo promemoria</h2>
+        <form id="appuntamentoForm">
+            <label for="nome">Nome e Cognome</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome e Cognome" required>
+
+            <label for="telefono">Numero di Telefono</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Es: 3331234567" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="tua@email.it" required>
+
+            <label for="data">Data Appuntamento</label>
+            <input type="date" id="data" name="data" required>
+
+            <label for="orario">Orario Appuntamento</label>
+            <input type="time" id="orario" name="orario" required>
+
+            <button type="submit">Conferma Appuntamento</button>
+        </form>
+        <div id="resultMessage"></div>
     </div>
-  </div>
 
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    emailjs.init("TJsrScp6B_S1zXJNv"); // Tua public key
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      (function(){
+        emailjs.init("TJsrScp6B_S1zXJNv"); // Il tuo public key
+      })();
+      
+      document.getElementById('appuntamentoForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var nome = document.getElementById('nome').value;
+        var telefono = document.getElementById('telefono').value;
+        var email = document.getElementById('email').value;
+        var data = document.getElementById('data').value;
+        var orario = document.getElementById('orario').value;
 
-    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      emailjs.sendForm('service_wgp5uwj', 'template_mg10y3r', this)
-        .then(function() {
-          document.getElementById('successMessage').style.display = 'block';
-          document.getElementById('appointmentForm').reset();
+        emailjs.send('service_wgp5uwj', 'template_mg10y3r', {
+          nome: nome,
+          telefono: telefono,
+          email: email,
+          data: data,
+          orario: orario
+        })
+        .then(function(response) {
+            document.getElementById('resultMessage').innerHTML = "<div class='success'>Appuntamento registrato! Riceverai una mail di conferma a breve.</div>";
+            document.getElementById("appuntamentoForm").reset();
         }, function(error) {
-          alert("Errore nell'invio, riprova.");
-          console.error(error);
+            document.getElementById('resultMessage').innerHTML = "<div class='error'>Errore nell'invio. Riprova o contattaci.</div>";
         });
-    });
-  </script>
+      });
+    </script>
 </body>
 </html>
