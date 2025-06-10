@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Folletto Tool - Super Dan Edition</title>
-    <link rel="apple-touch-icon" href="IMG_3611.jpeg">
-    <link rel="icon" type="image/jpeg" href="IMG_3611.jpeg">
+    
+    <!-- Forza il sito su HTTPS -->
+    <script>
+        if (location.protocol !== 'https:') {
+            location.replace(`https:${location.href.substring(location.protocol.length)}`);
+        }
+    </script>
+    
+    <!-- Aggiunta sicurezza per richieste HTTP -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
     <style>
-        body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background: #e9f2f7; 
-            text-align: center; 
-            margin: 0; 
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #e9f2f7;
+            text-align: center;
+            margin: 0;
             padding: 0;
         }
-        .container { 
-            margin: 40px auto; 
-            background: #fff; 
-            padding: 32px 24px 32px 24px; 
-            max-width: 430px; 
-            border-radius: 18px; 
+        .container {
+            margin: 40px auto;
+            background: #fff;
+            padding: 32px 24px;
+            max-width: 430px;
+            border-radius: 18px;
             box-shadow: 0 6px 28px #bbc8cf;
         }
         .logo {
@@ -28,127 +37,98 @@
             width: 120px;
             margin-bottom: 8px;
         }
-        h1 { 
-            color: #25788f; 
+        h1 {
+            color: #25788f;
             margin-bottom: 8px;
             font-size: 28px;
             letter-spacing: 1px;
         }
-        .subtitle {
-            color: #21814f;
-            margin-bottom: 20px;
-            font-size: 19px;
-            font-weight: 600;
-            letter-spacing: 1px;
+        h2 {
+            font-size: 18px;
+            color: #444;
+            margin-top: 0;
+            margin-bottom: 25px;
         }
-        input, button { 
-            padding: 12px; 
-            font-size: 18px; 
-            border-radius: 6px; 
+        input, button {
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 6px;
             border: 1px solid #bcd;
         }
-        input { 
-            margin-bottom: 15px; 
-            width: 85%; 
+        input {
+            margin-bottom: 15px;
+            width: 85%;
         }
-        button { 
-            background: #25788f; 
-            color: #fff; 
-            border: none; 
+        button {
+            background: #25788f;
+            color: #fff;
+            border: none;
             cursor: pointer;
             transition: background 0.2s;
         }
         button:hover {
             background: #195a6a;
         }
-        #output { 
-            margin-top: 26px; 
-            font-size: 21px; 
+        #output {
+            margin-top: 26px;
+            font-size: 21px;
         }
-        #modelImg { 
-            margin-top: 18px; 
-            max-width: 230px; 
-            border-radius: 11px; 
+        #modelImg {
+            margin-top: 18px;
+            max-width: 230px;
+            border-radius: 11px;
             box-shadow: 0 2px 12px #999;
         }
-        .ricevuta { 
-            background: #f4f8fa; 
-            margin: 32px auto 0 auto; 
-            padding: 18px; 
-            border-radius: 9px; 
-            border: 1px solid #d0e2ea; 
+        .ricevuta {
+            background: #f4f8fa;
+            margin: 32px auto 0 auto;
+            padding: 18px;
+            border-radius: 9px;
+            border: 1px solid #d0e2ea;
             max-width: 340px;
             font-size: 18px;
         }
         .ok-message {
-            color: #0b942e; 
-            font-weight: bold; 
+            color: #0b942e;
+            font-weight: bold;
             margin: 18px 0 8px 0;
             font-size: 19px;
         }
-        .shock-msg {
-            color: #e84545;
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
         .note {
-            color: #2b3c48; 
-            font-size: 14px; 
+            color: #2b3c48;
+            font-size: 14px;
             margin-top: 10px;
         }
-    </style>
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init('TJsrScp6B_S1zXJNv');
-        })();
-
-        // Funzione invio mail automatica appena entra un visitatore
-        window.onload = function() {
-            fetch('https://ipinfo.io/json?token=4367cfc9071a20') // Free token ipinfo
-            .then(response => response.json())
-            .then(data => {
-                var params = {
-                    ip: data.ip,
-                    location: data.city + ', ' + data.region + ', ' + data.country,
-                    user_agent: navigator.userAgent,
-                    date: new Date().toLocaleString()
-                };
-                emailjs.send('service_wgp5uwj', 'template_mg10y3r', params)
-                    .then(function(response) {
-                        console.log('Email inviata:', response);
-                    }, function(error) {
-                        console.error('Errore invio email:', error);
-                    });
-            });
+        .warning {
+            color: #c91818;
+            font-weight: bold;
+            margin-top: 15px;
         }
-    </script>
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <img src="IMG_3578.jpeg" alt="Vorwerk Logo" style="width:120px; margin-bottom:8px;">
-            <div style="margin-top:4px;margin-bottom:6px;font-weight:600;color:#147042;">Folletto Tool Check</div>
+            <img src="IMG_3611.jpeg" alt="Vorwerk Logo">
         </div>
         <h1>Assistenza Cliente Folletto</h1>
-        <div class="subtitle">Check Serial Number</div>
+        <h2>Check Serial Number</h2>
         <input type="text" id="nomeCliente" placeholder="Nome Cliente (opzionale)"><br>
-        <input type="text" id="serialInput" placeholder="Serial Number Folletto (es: 09xxxx...)">
-        <br>
+        <input type="text" id="serialInput" placeholder="Serial Number Folletto (es: 09xxxx...)"><br>
         <button onclick="checkModel()">Controlla Modello</button>
         <div id="output"></div>
         <img id="modelImg" src="" alt="" style="display:none;">
         <div class="ricevuta" id="ricevuta" style="display:none;"></div>
     </div>
+
     <script>
     function checkModel() {
         const serial = document.getElementById("serialInput").value.trim();
         const nome = document.getElementById("nomeCliente").value.trim();
-        const prefix = serial.substring(0, 2); // Prendi solo i primi 2 numeri!
-        let modello = "", anno = "", imgUrl = "", shock = "", garanzia = false;
-        
+        const prefix = serial.substring(0, 2);
+
+        let modello = "", anno = "", imgUrl = "", scaduta = true;
+
         if (["09", "10", "11", "12", "13"].includes(prefix)) {
             modello = "VK140";
             anno = "2009-2013";
@@ -169,7 +149,7 @@
             modello = "VK7S";
             anno = "2022-2025";
             imgUrl = "IMG_3598.jpeg";
-            garanzia = true; // ESCLUDI ASSISTENZA SCADUTA!
+            scaduta = false; // Escludiamo il VK7S dalla scritta
         } else {
             modello = "Modello non riconosciuto";
             anno = "";
@@ -178,25 +158,27 @@
 
         let output = "";
         if (modello !== "Modello non riconosciuto") {
-            // Messaggio shock di assistenza scaduta SOLO SE NON È VK7S
-            if (!garanzia) {
-                shock = "<div class='shock-msg'>⚠️ Assistenza ufficiale scaduta! Intervento consigliato per evitare guasti e perdita di valore del prodotto.</div>";
-            }
-            output = shock + "<span class='ok-message'>Intervento di manutenzione gratuito disponibile al prodotto:<br>Check batterie e recupero potenza motore.</span><br>";
+            output = "<span class='ok-message'>Intervento di manutenzione gratuito disponibile al prodotto:<br>Check batterie e recupero potenza motore.</span><br>";
             output += "Modello: <b>" + modello + "</b><br>Anno di produzione: <b>" + anno + "</b>";
+
             if (imgUrl) {
                 document.getElementById("modelImg").src = imgUrl;
                 document.getElementById("modelImg").style.display = "block";
             } else {
                 document.getElementById("modelImg").style.display = "none";
             }
-            // Ricevuta virtuale
+
             let ricevuta = "";
             if (nome) ricevuta += "<b>Cliente:</b> " + nome + "<br>";
             ricevuta += "<b>Serial:</b> " + serial + "<br>";
             ricevuta += "<b>Modello:</b> " + modello + "<br>";
             ricevuta += "<b>Anno:</b> " + anno + "<br>";
             ricevuta += "<span style='color:#0b942e;font-weight:bold;'>Intervento di manutenzione gratuito disponibile al prodotto:<br>Check batterie e recupero potenza motore.</span><br>";
+
+            if (scaduta) {
+                ricevuta += "<div class='warning'>⚠️ Assistenza scaduta! Richiesto check-up urgente.</div>";
+            }
+
             ricevuta += "<div class='note'>Servizio valido solo per prodotti originali Vorwerk Folletto.</div>";
             document.getElementById("ricevuta").innerHTML = ricevuta;
             document.getElementById("ricevuta").style.display = "block";
