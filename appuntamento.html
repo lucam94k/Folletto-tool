@@ -150,7 +150,7 @@
           orario: orario
         })
         .then(function(response) {
-            document.getElementById('resultMessage').innerHTML = "<div class='success'>Appuntamento registrato! Riceverai una mail di conferma a breve.</div>";
+            document.getElementById('resultMessage').innerHTML = "<div class='success'>Appuntamento registrato! Il cliente riceverà e-mail di conferma appuntamento a breve.</div>";
             document.getElementById("appuntamentoForm").reset();
         }, function(error) {
             document.getElementById('resultMessage').innerHTML = "<div class='error'>Errore nell'invio. Riprova o contattaci.</div>";
