@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Folletto Tool - Super Dan Edition</title>
+    <!-- Forza HTTPS -->
+    <script>
+        if (location.protocol !== 'https:') {
+            location.replace(`https:${location.href.substring(location.protocol.length)}`);
+        }
+    </script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <style>
-        body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background: #e9f2f7; 
-            text-align: center; 
-            margin: 0; 
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #e9f2f7;
+            text-align: center;
+            margin: 0;
             padding: 0;
         }
-        .container { 
-            margin: 40px auto; 
-            background: #fff; 
-            padding: 32px 24px 32px 24px; 
-            max-width: 430px; 
-            border-radius: 18px; 
+        .container {
+            margin: 40px auto;
+            background: #fff;
+            padding: 32px 24px;
+            max-width: 430px;
+            border-radius: 18px;
             box-shadow: 0 6px 28px #bbc8cf;
         }
         .logo {
@@ -26,142 +33,183 @@
             width: 120px;
             margin-bottom: 8px;
         }
-        h1 { 
-            color: #25788f; 
-            margin-bottom: 20px;
+        h1 {
+            color: #25788f;
+            margin-bottom: 8px;
             font-size: 28px;
             letter-spacing: 1px;
         }
-        input, button { 
-            padding: 12px; 
-            font-size: 18px; 
-            border-radius: 6px; 
+        h2 {
+            font-size: 18px;
+            color: #444;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+        input, button {
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 6px;
             border: 1px solid #bcd;
         }
-        input { 
-            margin-bottom: 15px; 
-            width: 85%; 
+        input {
+            margin-bottom: 15px;
+            width: 85%;
         }
-        button { 
-            background: #25788f; 
-            color: #fff; 
-            border: none; 
+        button {
+            background: #25788f;
+            color: #fff;
+            border: none;
             cursor: pointer;
             transition: background 0.2s;
         }
         button:hover {
             background: #195a6a;
         }
-        #output { 
-            margin-top: 26px; 
-            font-size: 21px; 
+        #output {
+            margin-top: 26px;
+            font-size: 21px;
         }
-        #modelImg { 
-            margin-top: 18px; 
-            max-width: 230px; 
-            border-radius: 11px; 
+        #modelImg {
+            margin-top: 18px;
+            max-width: 230px;
+            border-radius: 11px;
             box-shadow: 0 2px 12px #999;
         }
-        .ricevuta { 
-            background: #f4f8fa; 
-            margin: 32px auto 0 auto; 
-            padding: 18px; 
-            border-radius: 9px; 
-            border: 1px solid #d0e2ea; 
+        .ricevuta {
+            background: #f4f8fa;
+            margin: 32px auto 0 auto;
+            padding: 18px;
+            border-radius: 9px;
+            border: 1px solid #d0e2ea;
             max-width: 340px;
             font-size: 18px;
         }
         .ok-message {
-            color: #0b942e; 
-            font-weight: bold; 
+            color: #0b942e;
+            font-weight: bold;
             margin: 18px 0 8px 0;
             font-size: 19px;
         }
         .note {
-            color: #2b3c48; 
-            font-size: 14px; 
+            color: #2b3c48;
+            font-size: 14px;
             margin-top: 10px;
+        }
+        .warning {
+            color: #c91818;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        #appButton {
+            margin-top: 18px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <img src="IMG_3578.jpeg" alt="Vorwerk Logo" style="width:120px; margin-bottom:8px;">
+            <img src="IMG_3611.jpeg" alt="Vorwerk Logo">
         </div>
         <h1>Assistenza Cliente Folletto</h1>
+        <h2>Check Serial Number</h2>
         <input type="text" id="nomeCliente" placeholder="Nome Cliente (opzionale)"><br>
-        <input type="text" id="serialInput" placeholder="Serial Number Folletto (es: 2465xxxx)">
-        <br>
+        <input type="text" id="serialInput" placeholder="Serial Number Folletto (es: 09xxxx...)"><br>
         <button onclick="checkModel()">Controlla Modello</button>
         <div id="output"></div>
         <img id="modelImg" src="" alt="" style="display:none;">
         <div class="ricevuta" id="ricevuta" style="display:none;"></div>
+        <div id="appButton"></div>
     </div>
+
     <script>
-        function checkModel() {
-            const serial = document.getElementById("serialInput").value.trim();
-            const nome = document.getElementById("nomeCliente").value.trim();
-            const prefix = serial.substring(0, 4);
-            let modello = "", anno = "", imgUrl = "";
-            switch (prefix) {
-                case "2465":
-                    modello = "VK 140";
-                    anno = "2009";
-                    imgUrl = "IMG_3582.jpeg";
-                    break;
-                case "2533":
-                    modello = "VK 150";
-                    anno = "2011";
-                    imgUrl = "https://i.imgur.com/DRobA3e.jpg";
-                    break;
-                case "2631":
-                    modello = "VK 200";
-                    anno = "2012";
-                    imgUrl = "https://i.imgur.com/c1NUGQy.jpg";
-                    break;
-                case "2739":
-                    modello = "VK 220 S";
-                    anno = "2014";
-                    imgUrl = "https://i.imgur.com/VGSlh3N.jpg";
-                    break;
-                case "2832":
-                    modello = "VK 7";
-                    anno = "2023";
-                    imgUrl = "https://i.imgur.com/DSazixP.jpg";
-                    break;
-                default:
-                    modello = "Modello non riconosciuto";
-                    anno = "";
-                    imgUrl = "";
-            }
-            let output = "";
-            if (modello !== "Modello non riconosciuto") {
-                output = "<span class='ok-message'>Intervento di manutenzione gratuito disponibile al prodotto:<br>Check batterie e recupero potenza motore.</span><br>";
-                output += "Modello: <b>" + modello + "</b><br>Anno di produzione: <b>" + anno + "</b>";
-                if (imgUrl) {
-                    document.getElementById("modelImg").src = imgUrl;
-                    document.getElementById("modelImg").style.display = "block";
-                } else {
-                    document.getElementById("modelImg").style.display = "none";
-                }
-                // Ricevuta virtuale
-                let ricevuta = "";
-                if (nome) ricevuta += "<b>Cliente:</b> " + nome + "<br>";
-                ricevuta += "<b>Serial:</b> " + serial + "<br>";
-                ricevuta += "<b>Modello:</b> " + modello + "<br>";
-                ricevuta += "<b>Anno:</b> " + anno + "<br>";
-                ricevuta += "<span style='color:#0b942e;font-weight:bold;'>Intervento di manutenzione gratuito disponibile al prodotto:<br>Check batterie e recupero potenza motore.</span><br>";
-                ricevuta += "<div class='note'>Servizio valido solo per prodotti originali Vorwerk Folletto.</div>";
-                document.getElementById("ricevuta").innerHTML = ricevuta;
-                document.getElementById("ricevuta").style.display = "block";
-            } else {
-                output = "<span style='color:#b02b2b'>Modello non riconosciuto!<br>Controlla il serial.</span>";
-                document.getElementById("modelImg").style.display = "none";
-                document.getElementById("ricevuta").style.display = "none";
-            }
-            document.getElementById("output").innerHTML = output;
+    function checkModel() {
+        const serial = document.getElementById("serialInput").value.trim();
+        const nome = document.getElementById("nomeCliente").value.trim();
+        const prefix = serial.substring(0, 2);
+
+        let modello = "", anno = "", imgUrl = "", scaduta = true;
+
+        if (["92", "93", "94", "95", "96"].includes(prefix)) {
+            modello = "VK 130";
+            anno = "1992-1996";
+            imgUrl = "vk130.jpeg";
+        } else if (["97", "98", "99", "00", "01"].includes(prefix)) {
+            modello = "VK 131";
+            anno = "1997-2001";
+            imgUrl = "vk131.jpeg";
+        } else if (prefix === "02") {
+            modello = "VK 135";
+            anno = "2002";
+            imgUrl = "vk135.jpeg";
+        } else if (["03", "04", "05", "06", "07", "08"].includes(prefix)) {
+            modello = "VK 136";
+            anno = "2003-2008";
+            imgUrl = "vk136.jpeg";
+        } else if (["09", "10", "11", "12", "13"].includes(prefix)) {
+            modello = "VK140";
+            anno = "2009-2013";
+            imgUrl = "IMG_3582.jpeg";
+        } else if (prefix === "14") {
+            modello = "VK150";
+            anno = "2014";
+            imgUrl = "IMG_3584.jpeg";
+        } else if (["15", "16", "17"].includes(prefix)) {
+            modello = "VK 200";
+            anno = "2015-2017";
+            imgUrl = "IMG_3595.jpeg";
+        } else if (["18", "19", "20", "21"].includes(prefix)) {
+            modello = "VK 220S";
+            anno = "2018-2021";
+            imgUrl = "IMG_3597.jpeg";
+        } else if (["22", "23", "24", "25"].includes(prefix)) {
+            modello = "VK7S";
+            anno = "2022-2025";
+            imgUrl = "IMG_3598.jpeg";
+            scaduta = false;
+        } else {
+            modello = "Modello non riconosciuto";
+            anno = "";
+            imgUrl = "";
         }
+
+        let output = "";
+        let appButtonHtml = "";
+        if (modello !== "Modello non riconosciuto") {
+            output = "<span class='ok-message'>Intervento di manutenzione gratuito disponibile al prodotto:<br>Check batterie e recupero potenza motore.</span><br>";
+            output += "Modello: <b>" + modello + "</b><br>Anno di produzione: <b>" + anno + "</b>";
+
+            if (imgUrl) {
+                document.getElementById("modelImg").src = imgUrl;
+                document.getElementById("modelImg").style.display = "block";
+            } else {
+                document.getElementById("modelImg").style.display = "none";
+            }
+
+            let ricevuta = "";
+            if (nome) ricevuta += "<b>Cliente:</b> " + nome + "<br>";
+            ricevuta += "<b>Serial:</b> " + serial + "<br>";
+            ricevuta += "<b>Modello:</b> " + modello + "<br>";
+            ricevuta += "<b>Anno:</b> " + anno + "<br>";
+            ricevuta += "<span style='color:#0b942e;font-weight:bold;'>Intervento di manutenzione gratuito disponibile al prodotto:<br>Check batterie e recupero potenza motore.</span><br>";
+
+            if (scaduta) {
+                ricevuta += "<div class='warning'>⚠️ Assistenza scaduta! Richiesto check-up urgente.</div>";
+                appButtonHtml = "<button onclick=\"window.location.href='appuntamento.html'\">Prenota il tuo appuntamento</button>";
+            } else {
+                appButtonHtml = "";
+            }
+
+            ricevuta += "<div class='note'>Servizio valido solo per prodotti originali Vorwerk Folletto.</div>";
+            document.getElementById("ricevuta").innerHTML = ricevuta;
+            document.getElementById("ricevuta").style.display = "block";
+        } else {
+            output = "<span style='color:#b02b2b'>Modello non riconosciuto!<br>Controlla il serial.</span>";
+            document.getElementById("modelImg").style.display = "none";
+            document.getElementById("ricevuta").style.display = "none";
+        }
+        document.getElementById("output").innerHTML = output;
+        document.getElementById("appButton").innerHTML = appButtonHtml;
+    }
     </script>
 </body>
 </html>
