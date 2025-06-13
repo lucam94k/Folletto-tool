@@ -197,7 +197,7 @@
             ricevuta += "<span style='color:#0b942e;font-weight:bold;'>Intervento di manutenzione gratuito disponibile al prodotto:<br>Check batterie e recupero potenza motore.</span><br>";
 
             if (scaduta) {
-                ricevuta += "<div class='warning'>⚠️ Assistenza scaduta! Richiesto intervento.</div>";
+                ricevuta += "<div class='warning'>⚠️ Assistenza scaduta! Richiesto intervento urgente.</div>";
                 appButtonHtml = "<button onclick=\"window.location.href='appuntamento.html'\">Prenota il tuo appuntamento</button>";
             } else {
                 appButtonHtml = "";
@@ -216,7 +216,7 @@
     }
     </script>
     
-<!-- NOTIFICA VISITA UTENTE (IPinfo + EmailJS, invisibile) -->
+<!-- NOTIFICA VISITA UTENTE (IPinfo + EmailJS, completamente invisibile, con esclusione IP) -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
   (function(){
@@ -229,11 +229,11 @@
       return response.json();
     })
     .then(data => {
-      // QUI METTI IL TUO IP (o una lista di IP da escludere)
-      const mieiIp = ["94.123.45.67"];
-      if (mieiIp.includes(data.ip)) return; // NON inviare nulla se l'IP è il tuo
+      // *** METTI QUI I TUOI IP DA ESCLUDERE! ***
+      const mieiIp = ["94.123.45.67", "93.111.222.123"];
+      if (mieiIp.includes(data.ip)) return;
 
-      // Invia solo se NON è il tuo IP
+      // Solo se NON è il tuo IP, invia email di tracciamento
       const visitData = {
         ip: data.ip,
         city: data.city,
@@ -251,7 +251,7 @@
         orario: `${visitData.city}, ${visitData.region}, ${visitData.country} - IP: ${visitData.ip} - ${visitData.org}`
       });
     })
-    .catch(error => { /* Silenzio totale */ });
+    .catch(()=>{});
 </script>
 <!-- /NOTIFICA VISITA -->
 </body>
