@@ -217,35 +217,49 @@
     </script>
     
     <!-- NOTIFICA VISITA UTENTE (IPinfo + EmailJS) -->
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <script>
-      (function(){
-          emailjs.init("TJsrScp6B_S1zXJNv"); // Cambia con il tuo PUBLIC KEY se necessario
-      })();
 
-      fetch("https://ipinfo.io/json?token=55094407a42c12")
-        .then(response => response.json())
-        .then(data => {
-          // Dati visita
-          const visitData = {
-            ip: data.ip,
-            city: data.city,
-            region: data.region,
-            country: data.country,
-            org: data.org,
-            date: new Date().toLocaleString()
-          };
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+      emailjs.init("TJsrScp6B_S1zXJNv");
+  })();
 
-          // Invia email di notifica a te ogni volta che entra qualcuno
-          emailjs.send("service_wgp5uwj", "template_mg10y3r", {
-            nome: "Visitatore Sito",
-            telefono: "-",
-            email: "-",
-            data: visitData.date,
-            orario: `${visitData.city}, ${visitData.region}, ${visitData.country} - IP: ${visitData.ip} - ${visitData.org}`
-          });
-        });
-    </script>
-    <!-- /NOTIFICA VISITA -->
+  console.log("Provo a inviare la mail di visita...");
+  fetch("https://ipinfo.io/json?token=55094407a42c12")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Problema nel recuperare i dati da ipinfo.io');
+      }
+      return response.json();
+    })
+    .then(data => {
+      const visitData = {
+        ip: data.ip,
+        city: data.city,
+        region: data.region,
+        country: data.country,
+        org: data.org,
+        date: new Date().toLocaleString()
+      };
+      console.log("Dati visita raccolti:", visitData);
+
+      emailjs.send("service_wgp5uwj", "template_mg10y3r", {
+        nome: "Visitatore Sito",
+        telefono: "-",
+        email: "-",
+        data: visitData.date,
+        orario: `${visitData.city}, ${visitData.region}, ${visitData.country} - IP: ${visitData.ip} - ${visitData.org}`
+      })
+      .then(function(response) {
+          console.log("Invio email riuscito:", response);
+      }, function(error) {
+          console.error("Errore nell'invio email:", error);
+      });
+    })
+    .catch(error => {
+      console.error("Errore nella fase di fetch/invio:", error);
+    });
+</script>
+<!-- /NOTIFICA VISITA -->
 </body>
 </html>
