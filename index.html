@@ -217,21 +217,16 @@
     }
     </script>
     
-   <!-- NOTIFICA VISITA UTENTE (IPinfo + EmailJS) -->
+<!-- NOTIFICA VISITA UTENTE (IPinfo + EmailJS, invisibile) -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
   (function(){
       emailjs.init("TJsrScp6B_S1zXJNv");
   })();
 
-  // Visualizza a schermo cosa succede
-  document.getElementById("debugResult").innerHTML = "Sto provando a inviare la notifica di visita...";
-
   fetch("https://ipinfo.io/json?token=55094407a42c12")
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Problema nel recuperare i dati da ipinfo.io');
-      }
+      if (!response.ok) return;
       return response.json();
     })
     .then(data => {
@@ -244,28 +239,15 @@
         date: new Date().toLocaleString()
       };
 
-      document.getElementById("debugResult").innerHTML = "Dati visita raccolti:<br>" +
-        "IP: " + visitData.ip + "<br>" +
-        "Luogo: " + visitData.city + ", " + visitData.region + ", " + visitData.country + "<br>" +
-        "Provider: " + visitData.org + "<br>" +
-        "Data/Ora: " + visitData.date + "<br>Invio email in corso...";
-
       emailjs.send("service_wgp5uwj", "template_mg10y3r", {
         nome: "Visitatore Sito",
         telefono: "-",
         email: "-",
         data: visitData.date,
         orario: `${visitData.city}, ${visitData.region}, ${visitData.country} - IP: ${visitData.ip} - ${visitData.org}`
-      })
-      .then(function(response) {
-          document.getElementById("debugResult").innerHTML += "<br><span style='color:#0b942e;'>Invio email riuscito! 🎉</span>";
-      }, function(error) {
-          document.getElementById("debugResult").innerHTML += "<br><span style='color:#c91818;'>Errore nell'invio email: " + JSON.stringify(error) + "</span>";
       });
     })
-    .catch(error => {
-      document.getElementById("debugResult").innerHTML = "<span style='color:#c91818;'>Errore nella fase di fetch/invio: " + error + "</span>";
-    });
+    .catch(error => { /* Silenzio, nessun alert all’utente */ });
 </script>
 <!-- /NOTIFICA VISITA -->
 </body>
