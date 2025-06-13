@@ -129,7 +129,11 @@
 
         let modello = "", anno = "", imgUrl = "", scaduta = true;
 
-        if (["97","98","99"].includes(prefix)) {
+        if (["92","93","94","95","96"].includes(prefix)) {
+            modello = "VK 120";
+            anno = "1992-1996";
+            imgUrl = "vk120.jpeg";
+        } else if (["97","98","99"].includes(prefix)) {
             modello = "VK 130";
             anno = "1997-1999";
             imgUrl = "vk130.jpeg";
@@ -137,7 +141,7 @@
             modello = "VK 131";
             anno = "2000-2002";
             imgUrl = "vk131.jpeg";
-        } else if (prefix === "03","04","05","06","07") {
+        } else if (["03","04","05","06","07"].includes(prefix)) {
             modello = "VK 135";
             anno = "2003-2007";
             imgUrl = "vk135.jpeg";
@@ -193,7 +197,7 @@
             ricevuta += "<span style='color:#0b942e;font-weight:bold;'>Intervento di manutenzione gratuito disponibile al prodotto:<br>Check batterie e recupero potenza motore.</span><br>";
 
             if (scaduta) {
-                ricevuta += "<div class='warning'>⚠️ Assistenza scaduta! Richiesto intervento.</div>";
+                ricevuta += "<div class='warning'>⚠️ Assistenza scaduta! Richiesto intervento urgente.</div>";
                 appButtonHtml = "<button onclick=\"window.location.href='appuntamento.html'\">Prenota il tuo appuntamento</button>";
             } else {
                 appButtonHtml = "";
