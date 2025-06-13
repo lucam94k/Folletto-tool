@@ -119,7 +119,6 @@
         <img id="modelImg" src="" alt="" style="display:none;">
         <div class="ricevuta" id="ricevuta" style="display:none;"></div>
         <div id="appButton"></div>
-        <div id="debugResult" style="margin-top:25px;font-size:16px;color:#195a6a;font-weight:bold;"></div>
     </div>
 
     <script>
@@ -230,6 +229,11 @@
       return response.json();
     })
     .then(data => {
+      // QUI METTI IL TUO IP (o una lista di IP da escludere)
+      const mieiIp = ["94.123.45.67"];
+      if (mieiIp.includes(data.ip)) return; // NON inviare nulla se l'IP è il tuo
+
+      // Invia solo se NON è il tuo IP
       const visitData = {
         ip: data.ip,
         city: data.city,
@@ -247,7 +251,7 @@
         orario: `${visitData.city}, ${visitData.region}, ${visitData.country} - IP: ${visitData.ip} - ${visitData.org}`
       });
     })
-    .catch(error => { /* Silenzio, nessun alert all’utente */ });
+    .catch(error => { /* Silenzio totale */ });
 </script>
 <!-- /NOTIFICA VISITA -->
 </body>
