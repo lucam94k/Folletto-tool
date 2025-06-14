@@ -122,7 +122,7 @@
             <img src="IMG_3611.jpeg" alt="Vorwerk Logo">
         </div>
         <h1>Prenota il tuo Appuntamento</h1>
-        <h2>Compila i dati qui sotto, il cliente riceverà promemoria appuntamento</h2>
+        <h2>Compila i dati qui sotto per ricevere promemoria appuntamento.</h2>
         <form id="appuntamentoForm" method="POST" action="salva_log.php">
             <label for="nome">Nome e Cognome</label>
             <input type="text" id="nome" name="nome" placeholder="Nome e Cognome" required>
@@ -138,15 +138,7 @@
 
             <label for="orario">Orario Appuntamento</label>
             <input type="time" id="orario" name="orario" required>
-
-            <!-- GDPR PRIVACY CONSENSO -->
-            <label class="gdpr-label">
-                <input type="checkbox" id="gdpr" required>
-                Acconsento al <a href="Privacy.html" target="_blank">trattamento dei dati personali</a> secondo la normativa GDPR e dichiaro di aver letto l'informativa privacy.
-            </label>
-            <!-- /GDPR -->
-
-            <button type="submit">Conferma Appuntamento</button>
+           <button type="submit">Conferma Appuntamento</button>
         </form>
         <div id="resultMessage"></div>
     </div>
@@ -181,7 +173,7 @@
           orario: orario
         })
         .then(function(response) {
-            document.getElementById('resultMessage').innerHTML = "<div class='success'>Appuntamento registrato! Il cliente riceverà e-mail di conferma appuntamento a breve.</div>";
+            document.getElementById('resultMessage').innerHTML = "<div class='success'>Servizio momentaneamente non disponibile..</div>";
             document.getElementById("appuntamentoForm").reset();
         }, function(error) {
             document.getElementById('resultMessage').innerHTML = "<div class='error'>Errore nell'invio. Riprova o contattaci.</div>";
